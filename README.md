@@ -42,3 +42,7 @@ streamlit run dashboard/app.py
 
 # 6) Run the tests (optional)
 pytest -q
+
+git add dashboard/app.py
+git commit -m "Add Streamlit dashboard with KPIs"
+git push origin main
