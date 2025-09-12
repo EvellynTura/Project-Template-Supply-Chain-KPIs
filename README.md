@@ -38,11 +38,12 @@ python scripts/generate_sample_data.py
 
 # 5) Run the dashboard
 streamlit run dashboard/app.py
-
-
-# 6) Run the tests (optional)
-pytest -q
-
 git add dashboard/app.py
 git commit -m "Add Streamlit dashboard with KPIs"
 git push origin main
+
+git clone https://github.com/EvellynTura/Project-Template-Supply-Chain-KPIs.git
+cd Project-Template-Supply-Chain-KPIs
+
+# 6) Run the tests (optional)
+pytest -q
