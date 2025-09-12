@@ -1,1 +1,31 @@
-mv ~/Downloads/app.py dashboard/app.py
+import streamlit as st
+import pandas as pd
+from src.kpis import calculate_otif, calculate_fill_rate, calculate_lead_time, calculate_inventory_turnover
+
+st.set_page_config(page_title="Supply Chain KPIs", layout="wide")
+
+st.title("📊 Supply Chain KPI Dashboard")
+
+# Carregar dados
+data = pd.read_csv("data/orders.csv")
+
+# Calcular KPIs
+otif = calculate_otif(data)
+fill_rate = calculate_fill_rate(data)
+lead_time = calculate_lead_time(data)
+inventory_turnover = calculate_inventory_turnover(data)
+
+# Mostrar métricas
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("OTIF", f"{otif:.2f}%")
+col2.metric("Fill Rate", f"{fill_rate:.2f}%")
+col3.metric("Lead Time", f"{lead_time:.2f} dias")
+col4.metric("Inventory Turnover", f"{inventory_turnover:.2f}")
+
+# Exibir tabela e gráfico
+st.subheader("📦 Dados de Pedidos")
+st.dataframe(data.head(20))
+
+st.subheader("📈 Evolução dos Pedidos")
+st.line_chart(data.groupby("Data")["Quantidade"].sum())
+
